@@ -17,10 +17,16 @@ return array(
         ),
     ),
     'controllers' => array(
-        'invokables' => array(
-            'REST\Controller\User' => 'REST\Controller\UserController'
-        ),
+        'factories' => [
+            'REST\Controller\User' => 'REST\Controller\Factory\UserControllerFactory'
+        ]
     ),
+
+    'service_manager' => [
+        'factories' => [
+            'userEntity' => 'REST\Entity\Factory\UserFactory'
+        ]
+    ],
 
     'view_manager' => array(
         'strategies' => array(
