@@ -6,7 +6,7 @@ Feature:
     And request headers:
       |name  |value           |
       |Accept|application/json|
-    And body:
+    And request body:
       """
       {'username':'vitalick','first_name':'Vitalie','last_name':'Lisnic','email':'lisnicvitalie@yahoo.com'}
       """
@@ -25,7 +25,7 @@ Feature:
       |name  |value           |
       |Accept|application/json|
     And request method is 'get'
-    When I make a request to '/rest/user/id'
+    When I make a request to '/rest/user/2'
     Then response code should be '200'
     And response body should be a valid json string
     And response should contain:

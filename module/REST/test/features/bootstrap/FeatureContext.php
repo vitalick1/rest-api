@@ -27,7 +27,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function userTableIsEmpty()
     {
-        throw new PendingException();
+        /**
+         * @var Doctrine\ORM\EntityManager $em
+         */
+        $em = $this->app->getApplication()->getServiceManager()->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $em->getRepository('REST\Entity\User')->clear();
     }
 
     /**
@@ -35,15 +39,20 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function requestHeaders(TableNode $table)
     {
-        throw new PendingException();
+        $headers = new \Zend\Http\Headers();
+        foreach($table as $row){
+            $headers->addHeader(new Zend\Http\Header\GenericHeader($row['name'], $row['value']));
+        }
+
+        $this->app->getRequest()->setHeaders($headers);
     }
 
     /**
-     * @Given body:
+     * @Given request body:
      */
     public function body(PyStringNode $string)
     {
-        throw new PendingException();
+        $this->app->getRequest()->setBody($string);
     }
 
     /**
@@ -51,7 +60,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function requestMethodIs($arg1)
     {
-        throw new PendingException();
+        $this->app->getRequest()->setMethod($arg1);
     }
 
     /**
@@ -59,7 +68,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iMakeARequestTo($arg1)
     {
-        throw new PendingException();
+        $this->app->dispatch($arg1);
     }
 
     /**
@@ -67,7 +76,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function responseCodeShouldBe($arg1)
     {
-        throw new PendingException();
+        $this->app->assertResponseStatusCode($arg1);
     }
 
     /**

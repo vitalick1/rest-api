@@ -23,8 +23,12 @@ return array(
     ),
 
     'service_manager' => [
+        'invokables' => [
+            'hydrator' => 'Zend\Stdlib\Hydrator\ClassMethods'
+        ],
         'factories' => [
-            'userEntity' => 'REST\Entity\Factory\UserFactory'
+            'userEntity' => 'REST\Entity\Factory\UserFactory',
+            'userService' => 'REST\Service\Factory\UserFactory',
         ]
     ],
 

@@ -22,12 +22,13 @@ class UserControllerFactory implements FactoryInterface {
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $userEntity = $serviceLocator->get('userEntity');
-        $entityManager = $serviceLocator->get('Doctrine\ORM\EntityManager');
+
+        $sl = $serviceLocator->getServiceLocator();
+
+        $userService = $sl->get('userService');
 
         $controller = new UserController();
-        $controller->setUserEntity($userEntity);
-        $controller->setEntityManager($entityManager);
+        $controller->setUserService($userService);
 
         return $controller;
 
