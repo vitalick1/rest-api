@@ -11,9 +11,10 @@ return [
                     'port'     => '3306',
                     'user'     => 'root',
                     'password' => 'root',
-                    'dbname'   => 'RestAPI',
+                    'dbname'   => 'RestAPI_Test',
                 ]
             ]
         ]
     ],
+
 ];

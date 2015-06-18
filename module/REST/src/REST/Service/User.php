@@ -48,6 +48,19 @@ class User{
         return $list;
     }
 
+    public function save($data){
+        $hydrator = $this->getHydrator();
+        $hydrator->hydrate($data, $this->userEntity);
+        $this->getEntityManager()->persist($this->userEntity);
+        $this->getEntityManager()->flush();
+
+        return $hydrator->extract($this->userEntity);
+    }
+
+    public function getUserById($id){
+        $this->userEntity = $this->getEntityManager()->getRepository('REST\Entity\User')->find($id);
+        return $this->hydrator->extract($this->userEntity);
+    }
     /**
      * @return UserEntity
      */
