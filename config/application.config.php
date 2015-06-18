@@ -7,7 +7,6 @@
  */
 return [
     'modules' => [
-        'Application',
         'REST',
         'DoctrineModule',
         'DoctrineORMModule'

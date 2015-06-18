@@ -13,7 +13,7 @@
     "autoload": {
       "psr-0": {
         "REST\\": "module/REST/src",
-        "Application\\": "module/Application/src"
+        "RESTTest\\": "module/REST/test/src"
       }
     },
 

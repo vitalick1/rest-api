@@ -14,9 +14,23 @@ return [
                     ],
                 ],
             ],
+            'home' => [ // <-- this array key is the route name
+                'type' => 'Literal',
+                'options' => [
+                    'route' => '/',
+                    'defaults' => [
+                        'controller' => 'REST\Controller\Index',
+                        'action' => 'index'
+                    ],
+                ],
+            ],
         ],
     ],
+
     'controllers' => [
+        'invokables' => [
+            'REST\Controller\Index' => 'REST\Controller\IndexController'
+        ],
         'factories' => [
             'REST\Controller\User' => 'REST\Controller\Factory\UserControllerFactory'
         ]
@@ -33,6 +47,17 @@ return [
     ],
 
     'view_manager' => [
+
+        'not_found_template'   => 'error/404',
+        'exception_template'   => 'error/index',
+        'template_map' => [
+            'layout/layout'  => __DIR__ . '/../view/layout/layout.phtml',
+            'error/404'      => __DIR__ . '/../view/error/404.phtml',
+            'error/index'    => __DIR__ . '/../view/error/index.phtml',
+        ],
+        'template_path_stack' => array(
+            __DIR__ . '/../view',
+        ),
         'strategies' => [
             'ViewJsonStrategy'
         ],

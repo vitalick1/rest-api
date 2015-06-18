@@ -1,18 +1,15 @@
 <?php
-return array(
-    'modules' => array(
-        'REST',
+return [
+    'modules' => [
         'DoctrineModule',
-        'DoctrineORMModule'
-    ),
-    'module_listener_options' => array(
-        'module_paths' => array(
-            __DIR__ . '/../../../module',
-            __DIR__ . '/../../../vendor',
-        ),
-        'config_glob_paths' => array(
-            __DIR__ . '/config/autoload/{{,*.}global,{,*.}local}.php',
-        ),
-    ),
+        'DoctrineORMModule',
+        'REST',
+    ],
+    'module_listener_options' => [
+        'module_paths' => [],
+        'config_glob_paths' => [
+            __DIR__ . '/autoload/{{,*.}global,{,*.}local}.php',
+        ],
+    ],
 
-);
+];
