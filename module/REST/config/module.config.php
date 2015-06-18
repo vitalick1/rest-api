@@ -1,26 +1,26 @@
 <?php
-return array(
-    'router' => array(
-        'routes' => array(
-            'user' => array(
+return [
+    'router' => [
+        'routes' => [
+            'user' => [
                 'type'    => 'segment',
-                'options' => array(
+                'options' => [
                     'route'    => '/rest/user[/:id]',
-                    'constraints' => array(
+                    'constraints' => [
                         'id'     => '[0-9]+',
-                    ),
-                    'defaults' => array(
+                    ],
+                    'defaults' => [
                         'controller' => 'REST\Controller\User',
-                    ),
-                ),
-            ),
-        ),
-    ),
-    'controllers' => array(
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'controllers' => [
         'factories' => [
             'REST\Controller\User' => 'REST\Controller\Factory\UserControllerFactory'
         ]
-    ),
+    ],
 
     'service_manager' => [
         'invokables' => [
@@ -32,33 +32,33 @@ return array(
         ]
     ],
 
-    'view_manager' => array(
-        'strategies' => array(
+    'view_manager' => [
+        'strategies' => [
             'ViewJsonStrategy'
-        )
-    ),
+        ],
+    ],
 
-    'doctrine' => array(
-        'driver' => array(
+
+    'doctrine' => [
+        'driver' => [
             // defines an annotation driver with two paths, and names it `my_annotation_driver`
-            'rest_entity' => array(
+            'rest_entity' => [
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(
+                'paths' => [
                     __DIR__ . '/../src/REST/Entity',
-                ),
-            ),
-
+                ],
+            ],
             // default metadata driver, aggregates all other drivers into a single one.
             // Override `orm_default` only if you know what you're doing
-            'orm_default' => array(
-                'drivers' => array(
+            'orm_default' => [
+                'drivers' => [
                     // register `my_annotation_driver` for any entity under namespace `My\Namespace`
                     'REST\Entity' => 'rest_entity'
-                )
-            )
-        )
-    )
+                ],
+            ],
+        ],
+    ],
 
 
-);
+];

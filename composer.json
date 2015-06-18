@@ -9,6 +9,14 @@
         "behat/behat": "^3.0",
         "phpunit/phpunit": "*"
     },
+
+    "autoload": {
+      "psr-0": {
+        "REST\\": "module/REST/src",
+        "Application\\": "module/Application/src"
+      }
+    },
+
     "authors": [
         {
             "name": "Vitalie Lisnic",

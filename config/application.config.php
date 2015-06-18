@@ -5,21 +5,20 @@
  *
  * @see https://github.com/zendframework/ZFTool
  */
-return array(
-    'modules' => array(
+return [
+    'modules' => [
         'Application',
         'REST',
         'DoctrineModule',
         'DoctrineORMModule'
-    ),
-    'module_listener_options' => array(
-        'module_paths' => array(
-            __DIR__ . '/../module',
-            __DIR__ . '/../vendor',
-        ),
-        'config_glob_paths' => array(
+    ],
+    'module_listener_options' => [
+        'module_paths' => [
+            './vendor',
+        ],
+        'config_glob_paths' => [
             'config/autoload/{{,*.}global,{,*.}local}.php',
-        ),
-    ),
+        ],
+    ],
 
-);
+];

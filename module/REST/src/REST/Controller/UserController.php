@@ -10,6 +10,7 @@ namespace REST\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use REST\Service\User;
+use Zend\View\Model\JsonModel;
 
 
 class UserController extends AbstractRestfulController {
@@ -53,8 +54,8 @@ class UserController extends AbstractRestfulController {
     public function getList()
     {
         $listUsers = $this->getUserService()->getList();
-        $model = $this->acceptableViewModelSelector($this->acceptCriteria);
 
+        $model = $this->acceptableViewModelSelector($this->acceptCriteria);
         $model->list = $listUsers;
 
         return $model;
