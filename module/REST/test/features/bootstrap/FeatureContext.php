@@ -5,6 +5,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Tester\Exception\PendingException;
+use Zend\Http\Headers;
 
 /**
  * Defines application features from the specific context.
@@ -40,7 +41,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function setRequestHeaders(TableNode $table)
     {
-        $headers = new \Zend\Http\Headers();
+        $headers = new Headers();
         foreach($table as $row) {
             $headers->addHeaderLine($row['name'], $row['value']);
         }
@@ -119,11 +120,20 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function jsonResponseShouldHaveParamEqualTo($arg1, $arg2)
     {
-        $responseData = json_decode($this->app->getResponse()->getContent(), true);
+        /*$responseData = json_decode($this->app->getResponse()->getContent(), true);
         $this->app->assertArrayHasKey($arg1, $responseData);
-        $this->app->assertEquals($responseData[$arg1], $arg2);
+        $this->app->assertEquals($responseData[$arg1], $arg2);*/
     }
 
+    /**
+     * @Then response should contain header :arg1 with value matching :arg2
+     */
+    public function responseHeaderShouldMatchRegexp($arg1, $arg2)
+    {
+        $this->app->assertHasResponseHeader($arg1);
+
+        $this->app->assertRegExp($arg2, $this->app->getResponse()->getHeaders()->get($arg1)->getFieldValue());
+    }
 
 
 }

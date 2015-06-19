@@ -8,9 +8,11 @@
 
 namespace REST\Controller;
 
+use Zend\Http\Headers;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use REST\Service\User;
-use Zend\View\Model\JsonModel;
+
+use Zend\Mvc\Router\Http\TreeRouteStack;
 
 
 class UserController extends AbstractRestfulController {
@@ -25,6 +27,7 @@ class UserController extends AbstractRestfulController {
      * @var User
      */
     protected $userService;
+
 
     public function get($id)
     {
@@ -41,12 +44,15 @@ class UserController extends AbstractRestfulController {
 
         $data = $this->userService->save($data);
 
-        $model = $this->acceptableViewModelSelector($this->acceptCriteria);
+        $responseHeaders = new Headers();
 
-        $model->setVariables($data);
+        $userRoute = $this->url()->fromRoute('user', ['id' => $data['id']]);
+        $responseHeaders->addHeaderLine('Location', $userRoute);
 
-        return $model;
+        $this->getResponse()->setHeaders($responseHeaders);
+        $this->getResponse()->setStatusCode(303);
 
+        return $this->acceptableViewModelSelector($this->acceptCriteria);
     }
 
     public function delete($id)
@@ -65,6 +71,21 @@ class UserController extends AbstractRestfulController {
 
         $model = $this->acceptableViewModelSelector($this->acceptCriteria);
         $model->list = $listUsers;
+
+        return $model;
+    }
+
+    public function update($id, $data)
+    {
+        $data = json_decode($this->getRequest()->getContent(), true);
+
+        $data['id'] = $id;
+
+        $data = $this->userService->save($data);
+
+        $model = $this->acceptableViewModelSelector($this->acceptCriteria);
+
+        $model->setVariables($data);
 
         return $model;
     }
@@ -101,8 +122,6 @@ class UserController extends AbstractRestfulController {
     {
         $this->userService = $userService;
     }
-
-
 
 
 }

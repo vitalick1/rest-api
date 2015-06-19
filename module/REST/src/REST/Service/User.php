@@ -51,7 +51,13 @@ class User{
     public function save($data){
         $hydrator = $this->getHydrator();
         $hydrator->hydrate($data, $this->userEntity);
-        $this->getEntityManager()->persist($this->userEntity);
+
+        if($this->userEntity->getId() && $this->getEntityManager()->getRepository('REST\Entity\User')->find($this->userEntity->getId())) {
+            $this->getEntityManager()->merge($this->userEntity);
+        } else {
+            $this->getEntityManager()->persist($this->userEntity);
+        }
+
         $this->getEntityManager()->flush();
 
         return $hydrator->extract($this->userEntity);
